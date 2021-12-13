@@ -5,6 +5,7 @@ services:
         container_name: mariadb
         build:
             context: requirements/mariadb/
+        image: mariadb
         restart: always
         volumes:
             - db:/var/lib/mysql 
@@ -13,12 +14,12 @@ services:
         networks:
             - intra
         tty: true
-        env_file:
-            - .env
+        env_file: .env
     nginx:
         container_name: nginx
         build:
             context: requirements/nginx/
+        image: nginx
         restart: always
         ports:
             - "443:443"
@@ -29,6 +30,7 @@ services:
         container_name: wordpress
         build:
             context: requirements/wordpress/
+        image: wordpress
         restart: always
         volumes:
             - wp:/var/www/html
@@ -47,10 +49,10 @@ volumes:
         driver_opts:
             type: 'none'
             o: bind
-            device: '/home/jeongwle/data/db'
+            device: '/Users/jeongwle/Inception/data/db'
     wp :
         driver: local
         driver_opts:
             type: 'none'
             o: bind
-            device: '/home/jeongwle/data/wp'
+            device: '/Users/jeongwle/Inception/data/wp'

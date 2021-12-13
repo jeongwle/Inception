@@ -1,0 +1,58 @@
+version: '3.2'
+
+services:
+    mariadb:
+        container_name: mariadb
+        build:
+            context: requirements/mariadb/
+        image: mariadb
+        restart: always
+        volumes:
+            - db:/var/lib/mysql 
+        expose:
+            - "3306"
+        networks:
+            - intra
+        tty: true
+        env_file: .env
+    nginx:
+        container_name: nginx
+        build:
+            context: requirements/nginx/
+        image: nginx
+        restart: always
+        ports:
+            - "443:443"
+        networks:
+            - intra
+        tty: true
+    wordpress:
+        container_name: wordpress
+        build:
+            context: requirements/wordpress/
+        image: wordpress
+        restart: always
+        volumes:
+            - wp:/var/www/html
+        expose:
+            - "9000"
+        networks:
+            - intra
+        tty: true
+networks:
+    intra:
+        driver: bridge
+
+volumes:
+    db :
+        driver: local
+        driver_opts:
+            type: 'none'
+            o: bind
+            device: '/home/jeongwle/data/db'
+    wp :
+        driver: local
+        driver_opts:
+            type: 'none'
+            o: bind
+            device: '/home/jeongwle/data/wp'
