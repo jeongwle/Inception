@@ -9,7 +9,8 @@ RUN		apt-get update && apt-get -y upgrade && apt-get -y install \
 		php-mysql \
 		php-mbstring \
 		php-xml \
-		sendmail
+		sendmail \
+		mariadb-client
 
 COPY	conf/wp-config.php /var/www/html/
 COPY	conf/www.conf /etc/php/7.3/fpm/pool.d/
