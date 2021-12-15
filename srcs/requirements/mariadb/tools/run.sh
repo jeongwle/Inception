@@ -6,4 +6,4 @@ echo "CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';" | mysql -u
 echo "GRANT ALL ON '$MYSQL_DATABASE'.* TO '$MYSQL_USER'@'%';" | mysql -u root --skip-password
 echo "FLUSH PRIVILEGES;" | mysql -u root --skip-password
 
-mysqld_safe
+mysqld_safe --bind-address=0.0.0.0

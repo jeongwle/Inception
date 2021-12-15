@@ -1,16 +1,28 @@
 version: '3.2'
 
+volumes:
+    db :
+        driver: local
+        driver_opts:
+            type: 'none'
+            o: 'bind'
+            device: '/Users/jeongwle/re_inception/data/db'
+    wp :
+        driver: local
+        driver_opts:
+            type: 'none'
+            o: 'bind'
+            device: '/Users/jeongwle/re_inception/data/wp'
 services:
     mariadb:
         container_name: mariadb
-        build:
+        build :
             context: requirements/mariadb/
-        image: mariadb
         restart: always
-        volumes:
-            - db:/var/lib/mysql 
         expose:
             - "3306"
+        volumes:
+            - db:/var/lib/mysql/
         networks:
             - intra
         tty: true
@@ -19,40 +31,28 @@ services:
         container_name: nginx
         build:
             context: requirements/nginx/
-        image: nginx
         restart: always
         ports:
             - "443:443"
+        volumes:
+            - wp:/var/www/html
         networks:
             - intra
         tty: true
+        env_file: .env
     wordpress:
-        container_name: wordpress
+        container_name: wordrpess
         build:
             context: requirements/wordpress/
-        image: wordpress
         restart: always
         volumes:
             - wp:/var/www/html
-        expose:
+        expose: 
             - "9000"
         networks:
             - intra
         tty: true
+        env_file: .env
 networks:
     intra:
         driver: bridge
-
-volumes:
-    db :
-        driver: local
-        driver_opts:
-            type: 'none'
-            o: bind
-            device: '/Users/jeongwle/Inception/data/db'
-    wp :
-        driver: local
-        driver_opts:
-            type: 'none'
-            o: bind
-            device: '/Users/jeongwle/Inception/data/wp'
