@@ -16,7 +16,7 @@ volumes:
 services:
     mariadb:
         container_name: mariadb
-        build :
+        build:
             context: requirements/mariadb/
         restart: always
         expose:
@@ -41,7 +41,7 @@ services:
         tty: true
         env_file: .env
     wordpress:
-        container_name: wordrpess
+        container_name: wordpress
         build:
             context: requirements/wordpress/
         restart: always
