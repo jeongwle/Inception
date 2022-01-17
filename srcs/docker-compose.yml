@@ -29,6 +29,8 @@ services:
         env_file: .env
     nginx:
         container_name: nginx
+        depends_on:
+            - wordpress
         build:
             context: requirements/nginx/
         restart: always
@@ -42,6 +44,8 @@ services:
         env_file: .env
     wordpress:
         container_name: wordpress
+        depends_on:
+            - mariadb
         build:
             context: requirements/wordpress/
         restart: always

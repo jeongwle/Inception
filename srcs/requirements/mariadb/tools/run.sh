@@ -15,6 +15,8 @@ echo "GRANT ALL ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'%';" | mysql -u root --sk
 sleep 1
 echo "FLUSH PRIVILEGES;" | mysql -u root --skip-password
 sleep 1
+mysql -u root -p$MYSQL_DATABASE < wordpress.sql
+sleep 1
 service mysql stop
 sleep 1
 
