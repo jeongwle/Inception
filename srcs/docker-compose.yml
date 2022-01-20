@@ -6,13 +6,13 @@ volumes:
         driver_opts:
             type: 'none'
             o: 'bind'
-            device: '/Users/jeongwle/Inception/data/db'
+            device: '/home/jeongwle/data/db'
     wp :
         driver: local
         driver_opts:
             type: 'none'
             o: 'bind'
-            device: '/Users/jeongwle/Inception/data/wp'
+            device: '/home/jeongwle/data/wp'
 services:
     mariadb:
         container_name: mariadb
